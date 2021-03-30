@@ -5,6 +5,7 @@
 #![allow(non_snake_case)]
 
 mod structs;
+mod test;
 
 //use std::fs;
 
