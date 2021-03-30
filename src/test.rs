@@ -87,6 +87,8 @@ mod tests {
     </payloadPublication>
 </d2LogicalModel>""#;
 
+        let json = r#"[{"publication_time":"2021-03-05T11:22:01.628+01:00","id":205,"name":"E6 Rosten","latitude":61.878395,"longitude":9.41545}]"#.to_string();
+
         let mut locations: Vec<structs::WeatherStations> = Vec::new();
 
         let d2LogicalModel: structs::D2LogicalModel = serde_xml_rs::from_str(&body).unwrap();
@@ -112,7 +114,14 @@ mod tests {
             assert_eq!(longitude.clone(), 9.41545);
             /*println!("publication time: {}, id: {}, name: {}, latitude: {}, longitude: {}",
                      publication_time, id, name, latitude, longitude);*/
-        }
 
+            let optional = Some(serde_json::to_string(&locations));
+            match optional {
+                Some(jl) => {
+                    assert_eq!(jl.unwrap(), json);
+                },
+                _ => {println!("test")},
+            }
+        }
     }
 }
