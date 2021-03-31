@@ -74,7 +74,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .longitude;
         let ws = structs::WeatherStations {
             publication_time: publication_time.clone(),
-            id: id.clone(),
+            id: *id,
             name: name.clone(),
             latitude: *latitude,
             longitude: *longitude,
