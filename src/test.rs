@@ -92,19 +92,36 @@ mod tests {
         let mut locations: Vec<structs::WeatherStations> = Vec::new();
 
         let d2LogicalModel: structs::D2LogicalModel = serde_xml_rs::from_str(&body).unwrap();
-        let publication_time = &d2LogicalModel.payloadPublication.publicationTime.publicationTime;
+        let publication_time = &d2LogicalModel
+            .payloadPublication
+            .publicationTime
+            .publicationTime;
         println!("publication time: {}", publication_time);
-        for site in &d2LogicalModel.payloadPublication.measurementSiteTable.measurementSiteRecord {
+        for site in &d2LogicalModel
+            .payloadPublication
+            .measurementSiteTable
+            .measurementSiteRecord
+        {
             let id = &site.id;
             let name = &site.measurementSiteName.values.value.value;
-            let latitude = &site.measurementSiteLocation.pointByCoordinates.pointCoordinates.latitude.latitude;
-            let longitude = &site.measurementSiteLocation.pointByCoordinates.pointCoordinates.longitude.longitude;
+            let latitude = &site
+                .measurementSiteLocation
+                .pointByCoordinates
+                .pointCoordinates
+                .latitude
+                .latitude;
+            let longitude = &site
+                .measurementSiteLocation
+                .pointByCoordinates
+                .pointCoordinates
+                .longitude
+                .longitude;
             let ws = structs::WeatherStations {
                 publication_time: publication_time.clone(),
-                id: id.clone(),
+                id: *id,
                 name: name.clone(),
-                latitude: latitude.clone(),
-                longitude: longitude.clone(),
+                latitude: *latitude,
+                longitude: *longitude,
             };
             locations.push(ws);
             assert_eq!(publication_time, "2021-03-05T11:22:01.628+01:00");
@@ -113,14 +130,16 @@ mod tests {
             assert_eq!(latitude.clone(), 61.878395);
             assert_eq!(longitude.clone(), 9.41545);
             /*println!("publication time: {}, id: {}, name: {}, latitude: {}, longitude: {}",
-                     publication_time, id, name, latitude, longitude);*/
+            publication_time, id, name, latitude, longitude);*/
 
             let optional = Some(serde_json::to_string(&locations));
             match optional {
                 Some(jl) => {
                     assert_eq!(jl.unwrap(), json);
-                },
-                _ => {println!("test")},
+                }
+                _ => {
+                    println!("test")
+                }
             }
         }
     }

@@ -54,7 +54,7 @@ struct PublicationCreator {
 #[derive(Deserialize, Debug)]
 struct HeaderInformation {
     confidentiality: Confidentiality,
-    informationStatus: InformationStatus
+    informationStatus: InformationStatus,
 }
 
 #[derive(Deserialize, Debug)]
