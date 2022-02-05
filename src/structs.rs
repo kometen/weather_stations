@@ -85,7 +85,7 @@ struct MeasurementSiteTableIdentification {
 
 #[derive(Deserialize, Debug)]
 pub(crate) struct MeasurementSiteRecord {
-    pub(crate) id: u16,
+    pub(crate) id: u32,
     version: u16,
     pub(crate) measurementSiteName: MeasurementSiteName,
     pub(crate) measurementSiteLocation: MeasurementSiteLocation,
@@ -139,7 +139,7 @@ pub(crate) struct Longitude {
 #[derive(Serialize)]
 pub(crate) struct WeatherStations {
     pub(crate) publication_time: String,
-    pub(crate) id: u16,
+    pub(crate) id: u32,
     pub(crate) name: String,
     pub(crate) latitude: f32,
     pub(crate) longitude: f32,
